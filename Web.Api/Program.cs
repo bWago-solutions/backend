@@ -29,7 +29,8 @@ if (app.Environment.IsDevelopment())
 app.UseSerilogRequestLogging();
 app.UseExceptionHandler();
 app.UseHttpsRedirection();
-app.MapUserEndpoint();
 
+app.MapUserEndpoint();
+app.MapHealthEndpoint();
 
 app.Run();
