@@ -15,5 +15,7 @@ public static class UserEndPoint
 
             return result.IsSuccess ? Results.Ok(result.Value) : result.ToProblemDetails();
         });
+
+        app.MapGet("api/health", () => Results.Ok("Service healthy"));
     }
 }
