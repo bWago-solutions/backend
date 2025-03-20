@@ -1,13 +1,21 @@
 
 
+using Application.Abstractions.Data;
+using Domain.Users;
+using Infrastructure.Postgresql.Data;
+using Infrastructure.Postgresql.Repositories;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+    public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        return services;
+        string? connectionString = configuration.GetConnectionString("Database");
+        services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(options => options.UseNpgsql(connectionString));
+        services.AddScoped<IUserRepository, UserRepository>();
     }
 }
